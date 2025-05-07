@@ -11,7 +11,7 @@ sources:
          loaded_at_field: "CAST(date_date AS TIMESTAMP)"
          freshness:
            warn_after: {count: 90, period: day}
-           
+
          columns:
            - name: date_date
              description: date of purchase
@@ -27,10 +27,10 @@ sources:
            - unique:
                column_name: "(orders_id || '-' || pdt_id)"
            ## OR ## if dbt_utils is installed
-           - dbt_utils.unique_combination_of_columns:
-               combination_of_columns:
-                 - orders_id
-                 - pdt_id
+           #dbt_utils.unique_combination_of_columns:
+               #combination_of_columns:
+                 #- orders_id
+                 #- pdt_id 
        
        - name: product
          identifier: raw_gz_product

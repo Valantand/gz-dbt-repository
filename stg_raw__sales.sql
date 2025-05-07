@@ -1,3 +1,5 @@
+  -- stg_raw__sales.sql
+
  with
 
  source as (

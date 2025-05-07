@@ -1,27 +1,14 @@
-with sales as (
+  -- int_sales_margin.sql
 
-    select *
-    from `dbt_arobert.stg_gwz_raw_data__raw_gz_sales`
-
-),
-
-product as (
-
-    select *
-    from `dbt_arobert.stg_gz_raw_data__raw_gz_product`
-
-)
-
-select
-    sales.date_date,
-    sales.orders_id,
-    sales.pdt_id,
-    sales.revenue,
-    sales.quantity,
-    product.purchase_price,
-    sales.quantity * product.purchase_price as purchase_cost,
-    sales.revenue - (sales.quantity * product.purchase_price) as margin
-
-from sales
-inner join product
-    on sales.pdt_id = product.products_id
+  SELECT
+      products_id,
+      date_date,
+      orders_id,
+      revenue,
+      quantity,
+      purchase_price,
+      ROUND(s.quantity*p.purchase_price,2) AS purchase_cost,
+      ROUND(s.revenue - s.quantity*p.purchase_price, 2) AS margin
+  FROM {{ref("stg_raw__sales")}} s
+  LEFT JOIN {{ref("stg_raw__product")}} p
+      USING (products_id)

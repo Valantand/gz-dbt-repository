@@ -13,7 +13,7 @@ renamed as (
         shipping_fee,
         shipping_fee_1,
         logcost,
-        ship_cost
+        ship_cost,
         cast(ship_cost as FLOAT64) as shipping_cost
 
     from source
